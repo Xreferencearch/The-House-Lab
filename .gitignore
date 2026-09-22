@@ -1,0 +1,11 @@
+# Source decks and confidential originals (not part of the website)
+*.pptx
+*.pdf
+*.ai
+TheOrbitLab.html
+
+# OS cruft
+Thumbs.db
+
+# Archived/unused renders
+IMAGES/**/OLD/
