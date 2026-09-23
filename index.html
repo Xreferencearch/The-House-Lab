@@ -99,26 +99,8 @@ body {
 }
 .contact-btn:hover { transform: scale(1.05); background: #e7fe55; }
 
-.section-kicker {
-    font-family: 'Urbanist', sans-serif;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: #9aa3ab;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-}
-.section-kicker::before {
-    content: '';
-    width: 22px; height: 1px;
-    background: #e7fe55;
-    display: inline-block;
-}
-
 /* ============================================================
-   Shared panel component — used by Intro, Brand Principles
+   Shared panel component: used by Intro, Brand Principles
    ============================================================ */
 .principle-panel {
     position: relative;
@@ -179,45 +161,8 @@ body {
 }
 .principle-panel.in-view .panel-line { opacity: 1; transform: translateY(0); transition-delay: 0.45s; }
 
-/* Tech Integration — split mechanical / digital */
-.principle-panel.split { padding: 0; flex-direction: row; align-items: stretch; }
-.tech-half {
-    position: relative;
-    width: 50%; height: 100%;
-    display: flex; flex-direction: column; justify-content: flex-end;
-    padding: 70px 50px;
-    box-sizing: border-box;
-    overflow: hidden;
-}
-.tech-half.digital {
-    background: radial-gradient(circle at 50% 55%, rgba(184,228,234,0.07), transparent 62%), #0d1117;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-.tech-half.digital::before {
-    content: '';
-    position: absolute; top: 0; bottom: 0; left: 0;
-    width: 1px;
-    background: rgba(241, 236, 221, 0.14);
-}
-.tech-half.digital .panel-content { max-width: 480px; }
-.tech-half.digital .panel-kicker,
-.tech-half.digital .panel-line { margin-left: auto; margin-right: auto; }
-.app-mock {
-    width: 100%;
-    max-width: 420px;
-    margin: 0 auto 26px auto;
-    display: block;
-    border-radius: 18px;
-    opacity: 0; transform: translateY(30px) scale(0.96);
-    transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1);
-    filter: drop-shadow(0 30px 60px rgba(0,0,0,0.55));
-}
-.principle-panel.in-view .app-mock { opacity: 1; transform: translateY(0) scale(1); transition-delay: 0.2s; }
-
 /* ============================================================
-   Intro — hero (Core) + merged concept scene (Gravity / Permanence)
+   Intro: hero (Core) + merged concept scene (Gravity / Permanence)
    ============================================================ */
 .intro-hero { justify-content: center; align-items: center; text-align: center; }
 .intro-hero .panel-content { max-width: 720px; }
@@ -272,7 +217,6 @@ body {
     will-change: opacity, transform;
 }
 .concept-beat .panel-content { max-width: 700px; position: relative; z-index: 2; }
-.concept-beat .section-kicker { margin-bottom: 16px; justify-content: center; }
 .concept-beat .panel-heading { text-shadow: 0 4px 22px rgba(10, 13, 18, 0.95), 0 14px 50px rgba(10, 13, 18, 0.85); }
 .concept-beat .panel-line {
     margin-left: auto; margin-right: auto;
@@ -399,9 +343,17 @@ html.detail-open, body.detail-open { overflow: hidden; }
 }
 .principle-detail .principle-panel { height: 100vh; }
 .principle-detail .detail-hero.principle-panel { height: 58vh; }
+.principle-detail .detail-hero.principle-panel.short { height: 38vh; }
 .detail-hero .panel-content { max-width: 560px; }
 .detail-hero .panel-heading { font-size: clamp(30px, 4vw, 54px); margin-bottom: 14px; }
-.detail-hero .panel-line { font-size: 15px; }
+.detail-hero .panel-line {
+    font-size: 15px;
+    color: #e4e7ea;
+    text-shadow: 0 2px 14px rgba(10, 13, 18, 1), 0 8px 30px rgba(10, 13, 18, 0.95);
+}
+.detail-hero .panel-scrim {
+    background: linear-gradient(180deg, rgba(10,13,18,0.15) 0%, rgba(10,13,18,0.5) 45%, rgba(10,13,18,0.94) 100%);
+}
 
 .detail-moments {
     position: relative;
@@ -436,6 +388,16 @@ html.detail-open, body.detail-open { overflow: hidden; }
 .moment-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .moment-media.contain { background: #0d1117; }
 .moment-media.contain img { object-fit: contain; }
+.moment-media.split { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+.moment-media.split img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.moment-media-compare {
+    flex: 1 1 55%;
+    min-width: 0;
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.9s cubic-bezier(0.25, 1, 0.5, 1), transform 0.9s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.moment-row.in-view .moment-media-compare { opacity: 1; transform: translateY(0); }
+.moment-media-compare .plan-hint { margin-top: 12px; }
 .moment-text {
     flex: 1 1 40%;
     min-width: 0;
@@ -555,6 +517,16 @@ html.detail-open, body.detail-open { overflow: hidden; }
     margin: 16px 0 12px 0;
 }
 .diagram-line { font-size: 16px; color: #9aa3ab; font-weight: 300; line-height: 1.7; }
+.zero-glyph { position: relative; display: inline-block; }
+.zero-glyph::after {
+    content: '';
+    position: absolute;
+    left: 50%; top: 53%;
+    width: 0.14em; height: 0.14em;
+    background: currentColor;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
 
 .diagram-svg-wrap, .mechanism-diagram {
     width: 100%; max-width: 900px;
@@ -665,12 +637,34 @@ html.detail-open, body.detail-open { overflow: hidden; }
     pointer-events: none;
 }
 .plan-hint {
-    font-size: 12px; color: #565d64; letter-spacing: 0.3px;
+    font-size: 12px; color: #9aa3ab; letter-spacing: 0.3px;
     text-align: center;
+}
+.photo-compare {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #0d1117;
+    border: 1px solid rgba(241, 236, 221, 0.1);
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
+    touch-action: none;
+}
+.photo-compare .plan-layer img { object-fit: cover; }
+.spatial-video-wrap { flex: 1 1 100%; max-width: 900px; margin: 0 auto; }
+.spatial-video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    background: #0d1117;
+    border: 1px solid rgba(241, 236, 221, 0.1);
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
 }
 
 /* ============================================================
-   Finale — horizontal scroll through space renders (placeholder)
+   Finale: horizontal scroll through space renders (placeholder)
    ============================================================ */
 .finale-section { position: relative; height: 300vh; }
 .finale-track {
@@ -884,7 +878,7 @@ html.detail-open, body.detail-open { overflow: hidden; }
 }
 
 /* ============================================================
-   Closing — bookend with the opening image
+   Closing: bookend with the opening image
    ============================================================ */
 .closing-section {
     position: relative;
@@ -920,16 +914,16 @@ html.detail-open, body.detail-open { overflow: hidden; }
 
 <div class="main-header">
   <div class="brand">The House Lab</div>
-  <a class="header-logo" href="https://externalreference.com/" target="_blank" rel="noopener noreferrer" aria-label="External Reference — opens in a new tab">
+  <a class="header-logo" href="https://externalreference.com/" target="_blank" rel="noopener noreferrer" aria-label="External Reference, opens in a new tab">
     <img src="IMAGES/logo/external-reference-logo.png" alt="External Reference">
   </a>
   <div class="header-right">
     <nav class="header-nav">
-      <a href="#intro-concept" class="nav-link">The House</a>
+      <a href="#the-mechanism" class="nav-link">How it Works</a>
       <span class="nav-dot"></span>
       <a href="#brand-principles" class="nav-link">Brand Principles</a>
       <span class="nav-dot"></span>
-      <a href="#system-diagram" class="nav-link">The House Lab</a>
+      <a href="#floor-plan" class="nav-link">The Layout</a>
       <span class="nav-dot"></span>
       <a href="#roadmap" class="nav-link">Roadmap</a>
     </nav>
@@ -974,12 +968,12 @@ html.detail-open, body.detail-open { overflow: hidden; }
   <section class="diagram-section" id="the-vision-foundation" style="min-height: auto; padding-bottom: 50px;">
     <div class="diagram-intro">
       <h2 class="diagram-heading">The Foundation <br>Every Project Is Built On</h2>
-      <p class="diagram-line">The model already works at very different scales — from global platforms to a single flagship kitchen feeding a network.</p>
+      <p class="diagram-line">The model already works at very different scales, from global platforms to a single flagship kitchen feeding a network.</p>
     </div>
     <div class="benchmark-grid">
       <div class="benchmark-card">
         <h4>Rebel Foods</h4>
-        <p>45+ brands, 450 shared kitchens, 10 countries — heading for a 2026 IPO.</p>
+        <p>45+ brands, 450 shared kitchens, 10 countries, heading for a 2026 IPO.</p>
       </div>
       <div class="benchmark-card">
         <h4>Saizeriya</h4>
@@ -1003,7 +997,7 @@ html.detail-open, body.detail-open { overflow: hidden; }
   <section class="diagram-section" id="the-mechanism">
     <div class="diagram-intro">
       <h2 class="diagram-heading">How It Works.</h2>
-      <p class="diagram-line">The House produces everything. Each brand is run through the House's methodology first, then carried to guests across every channel — kiosks, digital canteens, retail, catering, delivery.</p>
+      <p class="diagram-line">The House produces everything. Each brand is run through the House's methodology first, then carried to guests across every channel: kiosks, digital canteens, retail, catering, delivery.</p>
     </div>
     <div class="mechanism-diagram">
       <div class="mech-row mech-row-hub">
@@ -1013,7 +1007,7 @@ html.detail-open, body.detail-open { overflow: hidden; }
         </div>
       </div>
       <div class="mech-connector"></div>
-      <span class="mech-row-label">Brands — each one run through the House's methodology first</span>
+      <span class="mech-row-label">Brands: each one run through the House's methodology first</span>
       <div class="mech-row mech-row-brands">
         <div class="mech-node">Brand 1</div>
         <div class="mech-node">Brand 2</div>
@@ -1033,16 +1027,17 @@ html.detail-open, body.detail-open { overflow: hidden; }
       <div class="timing-item">
         <div class="timing-value">~1,000 m²</div>
         <div class="timing-label">Production</div>
-        <p class="timing-note">Kiosks hold little themselves — the kitchen produces components, not dishes.</p>
+        <p class="timing-note">Kitchen space and vertical farming. Kiosks hold little themselves. The kitchen produces components, not dishes.</p>
       </div>
       <div class="timing-item">
-        <div class="timing-value">~500 m²</div>
+        <div class="timing-value">~700 m²</div>
         <div class="timing-label">Storage</div>
-        <p class="timing-note">Cold storage and delivery-truck logistics built in from day one.</p>
+        <p class="timing-note">Storage and delivery logistics, with cold storage and delivery-truck access built in from day one.</p>
       </div>
       <div class="timing-item">
-        <div class="timing-label">Chameleon Kiosks</div>
-        <p class="timing-note">The same lightweight module, reconfigured in days to test a new idea, without touching the kitchen.</p>
+        <div class="timing-value">~2,000 m²</div>
+        <div class="timing-label">Guest Experience</div>
+        <p class="timing-note">Dining, kiosks, and retail spaces.</p>
       </div>
     </div>
   </section>
@@ -1059,7 +1054,7 @@ html.detail-open, body.detail-open { overflow: hidden; }
       </div>
       <div class="deliver-card after">
         <h4>With The House's Methodology</h4>
-        <p>An idea earns its place by clearing the same bar every time: market size, competitive reality, fit with the platform's own philosophy. What launches, launches because it passed, not because it was the latest thing someone liked. This is discipline, not rigidity — the kiosk format is what makes testing inside it fast, cheap and reversible.</p>
+        <p>An idea earns its place by clearing the same bar every time: market size, competitive reality, fit with the platform's own philosophy. What launches, launches because it passed, not because it was the latest thing someone liked. This is discipline, not rigidity. The kiosk format is what makes testing inside it fast, cheap and reversible.</p>
       </div>
     </div>
   </section>
@@ -1067,9 +1062,8 @@ html.detail-open, body.detail-open { overflow: hidden; }
   <section class="trends-section" id="pop-up-trends">
     <div class="trends-grid">
       <div class="trends-text">
-        <span class="section-kicker">Market Signal</span>
         <h2 class="diagram-heading">Pop-Ups Move <br>Faster Than Menus</h2>
-        <p>A cookie video, a canned sushi roll, a limited-run cheesecake — a format can go from a single storefront to a global craving in a week. NYC's stuffed cookies, Sushi To-Go's tube packaging in Paris, chocolate-dipped fruit skewers in London, Mickey-shaped pancakes with a topping bar: none of them needed a full restaurant build to prove themselves.</p>
+        <p>A cookie video, a canned sushi roll, a limited-run cheesecake: a format can go from a single storefront to a global craving in a week. NYC's stuffed cookies, Sushi To-Go's tube packaging in Paris, chocolate-dipped fruit skewers in London, Mickey-shaped pancakes with a topping bar: none of them needed a full restaurant build to prove themselves.</p>
         <p>That's the gap the kiosk format is built to close. A trend this fast either gets tested inside a reversible module in days, or it's gone before a traditional build-out is even permitted.</p>
       </div>
       <div class="trends-window-wrap">
@@ -1085,15 +1079,15 @@ html.detail-open, body.detail-open { overflow: hidden; }
           </div>
           <div class="trends-slide" data-caption="C'Roll Sushi, Tube Packaging">
             <img src="IMAGES/POP UPS/Picture3.jpg" alt="C'Roll sushi roll in portable tube packaging">
-            <div class="trends-slide-scrim"><span class="trends-slide-caption">C'Roll Sushi — Tube Packaging</span></div>
+            <div class="trends-slide-scrim"><span class="trends-slide-caption">C'Roll Sushi, Tube Packaging</span></div>
           </div>
           <div class="trends-slide" data-caption="Sushi To-Go, Paris">
             <img src="IMAGES/POP UPS/Screenshot 2026-09-18 165638.png" alt="Sushi To-Go storefront in Paris with tube packaging">
-            <div class="trends-slide-scrim"><span class="trends-slide-caption">Sushi To-Go — Paris</span></div>
+            <div class="trends-slide-scrim"><span class="trends-slide-caption">Sushi To-Go, Paris</span></div>
           </div>
           <div class="trends-slide" data-caption="Chocofruit London, Mickey Pancakes">
             <img src="IMAGES/POP UPS/Screenshot 2026-09-18 170108.png" alt="Chocofruit London limited-edition Mickey Mouse pancakes with chocolate">
-            <div class="trends-slide-scrim"><span class="trends-slide-caption">Chocofruit London — Mickey Pancakes</span></div>
+            <div class="trends-slide-scrim"><span class="trends-slide-caption">Chocofruit London, Mickey Pancakes</span></div>
           </div>
         </div>
       </div>
@@ -1102,8 +1096,7 @@ html.detail-open, body.detail-open { overflow: hidden; }
 
   <section class="principles-hub" id="brand-principles">
     <div class="hub-intro">
-      <span class="section-kicker">Brand Principles</span>
-      <h2 class="hub-heading">Four Ideas, <br>One System</h2>
+      <h2 class="hub-heading">Four Values, <br>One System</h2>
       <p class="hub-line">Click a principle to see how it works.</p>
     </div>
     <div class="hub-grid">
@@ -1114,49 +1107,47 @@ html.detail-open, body.detail-open { overflow: hidden; }
         <span class="hub-card-title">Farm to Table</span>
       </button>
       <button class="hub-card" data-target="detail-tech">
-        <div class="hub-card-media" style="background-image:url('IMAGES/TECH INTEGRATION/TECH INTEGRATION_ROBOT CONVEYOR.png')"></div>
+        <div class="hub-card-media" style="background-image:url('IMAGES/TECH INTEGRATION/CONVEYOR BELT.png')"></div>
         <div class="hub-card-scrim"></div>
         <span class="hub-card-arrow">→</span>
-        <span class="hub-card-title">Tech Integration</span>
+        <span class="hub-card-title">Frictionless Service</span>
       </button>
       <button class="hub-card" data-target="detail-spatial">
-        <div class="hub-card-media" style="background-image:url('IMAGES/SPATIAL FLEXIBILITY/ChatGPT Image Sep 18, 2026, 06_21_43 PM.png')"></div>
+        <div class="hub-card-media" style="background-image:url('IMAGES/SPATIAL FLEXIBILITY/COOKING WORKSHOP.png')"></div>
         <div class="hub-card-scrim"></div>
         <span class="hub-card-arrow">→</span>
         <span class="hub-card-title">Spatial Flexibility</span>
       </button>
       <button class="hub-card" data-target="detail-brand">
-        <div class="hub-card-media" style="background-image:url('IMAGES/BRAND INTEGRATION/BRAND INTEGRATION_KIOSK.png')"></div>
+        <div class="hub-card-media" style="background-image:url('IMAGES/BRAND INTEGRATION/KIOSK NORI.png')"></div>
         <div class="hub-card-scrim"></div>
         <span class="hub-card-arrow">→</span>
-        <span class="hub-card-title">Brand Integration &amp; Swappability</span>
+        <span class="hub-card-title">Modular by Design</span>
       </button>
     </div>
   </section>
 
   <div class="principle-detail" id="detail-farm">
     <button class="detail-close">← Back</button>
-    <div class="principle-panel detail-hero" id="principle-farm">
+    <div class="principle-panel detail-hero short" id="principle-farm">
       <div class="panel-bg" style="background-image:url('IMAGES/FARM TO TABLE/FARM TO TABLE.png')"></div>
       <div class="panel-scrim"></div>
       <div class="panel-content">
         <h3 class="panel-heading">Farm to Table</h3>
-        <p class="panel-line">On-site vertical growing turns the dining room into an active farm — herbs and greens harvested hours before they reach the plate.</p>
+        <p class="panel-line">On-site vertical growing turns the dining room into an active farm. Herbs and greens are harvested hours before they reach the plate.</p>
       </div>
     </div>
     <div class="detail-moments">
       <div class="moment-row">
         <div class="moment-media"><img src="IMAGES/FARM TO TABLE/FARM TO TABLE.png" alt="Vertical growing towers wrapping the dining room"></div>
         <div class="moment-text">
-          <span class="section-kicker">The Growing Wall</span>
           <h4 class="moment-heading">Grown in the room, not shipped to it</h4>
-          <p>Vertical towers wrap the dining room in living herbs and greens — the same plants guests see growing are the ones that land on their plate that night.</p>
+          <p>Vertical towers wrap the dining room in living herbs and greens. The same plants guests see growing are the ones that land on their plate that night.</p>
         </div>
       </div>
       <div class="moment-row reverse">
         <div class="moment-media"><img src="IMAGES/FARM TO TABLE/KITCHEN LAB.jpg" alt="Chef harvesting herbs beside a live climate dashboard"></div>
         <div class="moment-text">
-          <span class="section-kicker">The Living Kitchen</span>
           <h4 class="moment-heading">A dashboard for every tower</h4>
           <p>Humidity, light, and yield are tracked live for every tower, so the kitchen harvests at peak freshness and builds the menu around what's ready that day.</p>
         </div>
@@ -1166,40 +1157,42 @@ html.detail-open, body.detail-open { overflow: hidden; }
 
   <div class="principle-detail" id="detail-tech">
     <button class="detail-close">← Back</button>
-    <div class="principle-panel split detail-hero" id="principle-tech">
-      <div class="tech-half mech">
-        <div class="panel-bg" style="background-image:url('IMAGES/TECH INTEGRATION/TECH INTEGRATION_ROBOT CONVEYOR.png')"></div>
-        <div class="panel-scrim"></div>
-        <div class="panel-content">
-          <span class="panel-kicker section-kicker">Robotics &amp; Motion</span>
-          <h3 class="panel-heading small">Conveyor &amp; Arms</h3>
-          <p class="panel-line">A conveyor circulates dishes through the space while robotic arms garnish and serve — motion and precision working the same line as the chefs.</p>
-        </div>
-      </div>
-      <div class="tech-half digital">
-        <div class="panel-content">
-          <span class="panel-kicker section-kicker">Connected Guest Experience</span>
-          <img class="app-mock" src="IMAGES/TECH INTEGRATION/TECH INTEGRATION_APP.png" alt="House app showing dish details, ingredient origin, and impact">
-          <h3 class="panel-heading small">The House App</h3>
-          <p class="panel-line">See what's growing, what's in your dish, and exactly where every ingredient came from.</p>
-        </div>
+    <div class="principle-panel detail-hero short" id="principle-tech">
+      <div class="panel-bg" style="background-image:url('IMAGES/TECH INTEGRATION/TECH INTEGRATION_CONVEYOR.png')"></div>
+      <div class="panel-scrim"></div>
+      <div class="panel-content">
+        <h3 class="panel-heading">Frictionless Service</h3>
+        <p class="panel-line">A conveyor line moves every dish through the room in seconds, and the app tells you exactly what's on it before it arrives.</p>
       </div>
     </div>
     <div class="detail-moments">
       <div class="moment-row">
-        <div class="moment-media"><img src="IMAGES/TECH INTEGRATION/TECH INTEGRATION_CONVEYOR_02.png" alt="Branded conveyor line serving premium wagyu smash burgers"></div>
+        <div class="moment-media-compare">
+          <div class="photo-compare" id="conveyor-compare">
+            <div class="plan-layer plan-base">
+              <img src="IMAGES/TECH INTEGRATION/CONVEYOR BELT.png" alt="Counter built with the conveyor belt option, carrying finished plates to guests" draggable="false">
+              <span class="plan-tag">Conveyor Build</span>
+            </div>
+            <div class="plan-layer plan-overlay" style="clip-path: inset(0 50% 0 0);">
+              <img src="IMAGES/TECH INTEGRATION/NO CONVEYOR BELT.png" alt="The same counter built without the conveyor belt, plates served by hand" draggable="false">
+              <span class="plan-tag">Manual Build</span>
+            </div>
+            <div class="plan-handle" style="left:50%;">
+              <div class="plan-handle-grip">↔</div>
+            </div>
+          </div>
+          <p class="plan-hint">Drag to compare the two build options for the same counter.</p>
+        </div>
         <div class="moment-text">
-          <span class="section-kicker">Every Counter, One Line</span>
-          <h4 class="moment-heading">One belt, any brand</h4>
-          <p>The same kaiten line carries sushi, burgers, or bowls. Each activation brands the belt, the trays, and the signage — without touching the hardware underneath.</p>
+          <h4 class="moment-heading">Conveyor, or served by hand</h4>
+          <p>Whether to build the conveyor comes down to budget, like most choices in the kit. Add it and a belt carries finished plates from kitchen to guest in seconds. Leave it out and staff hand plates across the counter just as well.</p>
         </div>
       </div>
       <div class="moment-row reverse">
-        <div class="moment-media"><img src="IMAGES/TECH INTEGRATION/TECH INTEGRATION_APP_02.png" alt="Guest using the app to trace a dish back to its ingredients"></div>
+        <div class="moment-media"><img src="IMAGES/TECH INTEGRATION/APP.png" alt="The House Lab app showing a dish's ingredients, origin, growth cycle, and water and carbon impact"></div>
         <div class="moment-text">
-          <span class="section-kicker">Full Traceability</span>
-          <h4 class="moment-heading">Every dish, fully sourced</h4>
-          <p>Point a phone at any dish on the line to see exactly which tower it grew in, how far it traveled, and what's in it — down to the gram.</p>
+          <h4 class="moment-heading">The House Lab App Integration</h4>
+          <p>Point a phone at any dish on the line to see which tower it grew in, how far it traveled, and what's in it, down to the gram.</p>
         </div>
       </div>
     </div>
@@ -1207,130 +1200,81 @@ html.detail-open, body.detail-open { overflow: hidden; }
 
   <div class="principle-detail" id="detail-spatial">
     <button class="detail-close">← Back</button>
-    <div class="principle-panel detail-hero" id="principle-spatial">
-      <div class="panel-bg" style="background-image:url('IMAGES/SPATIAL FLEXIBILITY/image - 2026-09-18T181945.933.png')"></div>
+    <div class="principle-panel detail-hero short" id="principle-spatial">
+      <div class="panel-bg" style="background-image:url('IMAGES/SPATIAL FLEXIBILITY/SPATIAL FLEXIBILITY COVER.png')"></div>
       <div class="panel-scrim"></div>
       <div class="panel-content">
         <h3 class="panel-heading">Spatial Flexibility</h3>
-        <p class="panel-line">Stackable, lightweight furniture and hydroponic walls on hidden wheels reconfigure the floor in minutes — the same space hosts a quiet lunch, a brand launch, or a full presentation by nightfall.</p>
+        <p class="panel-line">Stackable furniture and hydroponic walls on hidden wheels reconfigure the floor in minutes. The same space hosts a quiet lunch, a cooking class, or a brand launch by nightfall.</p>
+      </div>
+    </div>
+    <div class="detail-extra">
+      <div class="spatial-video-wrap">
+        <video class="spatial-video" src="IMAGES/SPATIAL FLEXIBILITY/THE HOUSE LAB_FLEX.mp4" autoplay muted loop playsinline preload="auto"></video>
+        <p class="plan-hint">The same floor, reconfigured: from dining, to a cooking class, to a brand launch.</p>
       </div>
     </div>
     <div class="detail-moments">
       <div class="moment-row">
-        <div class="moment-media"><img src="IMAGES/SPATIAL FLEXIBILITY/ChatGPT Image Sep 18, 2026, 06_21_43 PM.png" alt="Lightweight stools nesting into a stacked column beside single stools"></div>
+        <div class="moment-media split">
+          <img src="IMAGES/SPATIAL FLEXIBILITY/FURNITRUE.png" alt="Stackable stools nesting into a stacked column beside single stools">
+          <img src="IMAGES/SPATIAL FLEXIBILITY/HYDROPONICS.png" alt="Mobile hydroponic growing unit on caster wheels with its own lighting and shelving">
+        </div>
         <div class="moment-text">
-          <span class="section-kicker">Built to Move</span>
-          <h4 class="moment-heading">Stackable, light, gone in minutes</h4>
-          <p>Every stool and table is light enough to lift with one hand and stacks flush against the next. A dining floor for two hundred folds down and rolls out of the way in minutes — the same footprint hosts a brand launch, a press briefing, or a quiet lunch service without a single wall moving.</p>
+          <h4 class="moment-heading">Stackable chairs, rolling gardens</h4>
+          <p>Every stool is light enough to lift with one hand and stacks flush against the next. The growing towers move just as easily. Each hydroponic unit sits on hidden casters and carries everything it needs to grow, lighting and irrigation included, so the living wall relocates right along with the floor. The same footprint hosts a brand launch, a cooking class, or a quiet lunch service without a single wall moving.</p>
         </div>
-      </div>
-      <div class="moment-row reverse">
-        <div class="moment-media"><img src="IMAGES/SPATIAL FLEXIBILITY/ChatGPT Image Sep 18, 2026, 06_22_05 PM.png" alt="Hydroponic growing wall on hidden casters, detail of discreet mobility"></div>
-        <div class="moment-text">
-          <span class="section-kicker">The Garden Moves, Too</span>
-          <h4 class="moment-heading">Hydroponic walls on hidden wheels</h4>
-          <p>The growing towers that wrap the dining room aren't fixed either — each one sits on casters hidden inside its base, so the living wall itself can roll into a new position as the floor reconfigures around it.</p>
-        </div>
-      </div>
-    </div>
-    <div class="detail-extra">
-      <div class="switcher-intro" style="flex:1 1 100%; text-align:center;">
-        <span class="section-kicker" style="justify-content:center;">One Floor, Three Events</span>
-      </div>
-      <div class="brand-switcher wide" data-switcher="events">
-        <div class="switcher-tabs">
-          <button class="switcher-tab active" data-image="IMAGES/SPATIAL FLEXIBILITY/image - 2026-09-18T180619.121.png" data-caption="Standard configuration — round tables seat a full dining service around the core.">Dining</button>
-          <button class="switcher-tab" data-image="IMAGES/SPATIAL FLEXIBILITY/image - 2026-09-18T181945.933.png" data-caption="Tables swap for cocktail rounds and signage — the floor resets for a brand launch in the same footprint.">Brand Launch</button>
-          <button class="switcher-tab" data-image="IMAGES/SPATIAL FLEXIBILITY/image - 2026-09-18T181949.326.png" data-caption="Seating turns to face the core — the kitchen becomes the stage for a live presentation.">Presentation</button>
-        </div>
-        <div class="switcher-stage">
-          <div class="switcher-image" style="background-image:url('IMAGES/SPATIAL FLEXIBILITY/image - 2026-09-18T180619.121.png')"></div>
-        </div>
-        <span class="switcher-caption">Standard configuration — round tables seat a full dining service around the core.</span>
       </div>
     </div>
   </div>
 
   <div class="principle-detail" id="detail-brand">
     <button class="detail-close">← Back</button>
-    <div class="principle-panel detail-hero" id="principle-brand">
-      <div class="panel-bg" style="background-image:url('IMAGES/BRAND INTEGRATION/BRAND INTEGRATION_KIOSK.png')"></div>
+    <div class="principle-panel detail-hero short" id="principle-brand">
+      <div class="panel-bg" style="background-image:url('IMAGES/BRAND INTEGRATION/KIOSK NORI.png')"></div>
       <div class="panel-scrim"></div>
       <div class="panel-content">
-        <h3 class="panel-heading">Brand Integration <br>&amp; Swappability</h3>
-        <p class="panel-line">Kiosks reskin, table and space decor swaps, and signage reads different content — the same shell becomes a new brand for every activation.</p>
+        <h3 class="panel-heading">Modular by Design</h3>
+        <p class="panel-line">Kiosks reskin end to end. The same shell becomes a new brand for every activation.</p>
       </div>
     </div>
     <div class="detail-moments">
       <div class="moment-row">
-        <div class="moment-media contain"><img src="IMAGES/BRAND INTEGRATION/KIOSK_EXTERIOR KIT.png" alt="Exploded diagram of the kiosk's modular exterior kit"></div>
+        <div class="moment-media contain"><img src="IMAGES/BRAND INTEGRATION/KIOSK EXTERIOR KIT.png" alt="Exploded diagram of the kiosk's modular exterior kit"></div>
         <div class="moment-text">
-          <span class="section-kicker">Built to Reskin</span>
           <h4 class="moment-heading">One shell, a kit of parts</h4>
-          <p>Canopy, header display, side signage, menu holder, mobility base — every kiosk is built from the same modular kit, so a brand can be swapped out in hours, not weeks.</p>
+          <p>Recessed brand screen, flat touch screen, folding pickup shelf, glazed closure, condiment caddy, delivery hatch, side counter: every kiosk is built from the same modular kit, so a brand can be swapped out in hours, not weeks.</p>
         </div>
       </div>
       <div class="moment-row reverse">
-        <div class="moment-media contain"><img src="IMAGES/BRAND INTEGRATION/KIOSK_INTERIOR KIT.png" alt="Exploded diagram of the kiosk's modular interior kit"></div>
+        <div class="moment-media contain"><img src="IMAGES/BRAND INTEGRATION/KIOSK INTERIOR KIT.png" alt="Exploded diagram of the kiosk's modular interior kit"></div>
         <div class="moment-text">
-          <span class="section-kicker">Underneath the Skin</span>
           <h4 class="moment-heading">The interior kit stays constant</h4>
-          <p>Prep counter, point-of-sale, storage, and service window are fixed in place and identical across every kiosk — only the surface-level branding changes when a concept swaps in.</p>
+          <p>Prep counter, point-of-sale, storage, and service window are fixed in place and identical across every kiosk. Only the surface-level branding changes when a concept swaps in.</p>
         </div>
       </div>
     </div>
     <div class="detail-extra">
-      <div class="brand-switcher" data-switcher="kiosk">
+      <div class="brand-switcher wide" data-switcher="kiosk">
         <div class="switcher-tabs">
-          <button class="switcher-tab active" data-image="IMAGES/BRAND INTEGRATION/BRAND INTEGRATION_KIOSK.png">NŌRI</button>
-          <button class="switcher-tab" data-image="IMAGES/BRAND INTEGRATION/BRAND INTEGRATION_KIOSK_02.png">Crush</button>
-          <button class="switcher-tab" data-image="IMAGES/BRAND INTEGRATION/BRAND INTEGRATION_KIOSK_03.png">Sweetcircle</button>
+          <button class="switcher-tab active" data-image="IMAGES/BRAND INTEGRATION/KIOSK NORI.png" data-caption="NŌRI: sushi and hand rolls.">NŌRI</button>
+          <button class="switcher-tab" data-image="IMAGES/BRAND INTEGRATION/KIOSK CRUSH.png" data-caption="Crush: smash, stack, go.">Crush</button>
+          <button class="switcher-tab" data-image="IMAGES/BRAND INTEGRATION/KIOSK CACAO.png" data-caption="Cacao: chocolate for a brighter day.">Cacao</button>
+          <button class="switcher-tab" data-image="IMAGES/BRAND INTEGRATION/KIOSK GROW.png" data-caption="Grow: fresh from the tower to the counter.">Grow</button>
+          <button class="switcher-tab" data-image="IMAGES/BRAND INTEGRATION/KIOSK SWEET CIRCLE.png" data-caption="Sweet Circle: desserts, reimagined.">Sweet Circle</button>
         </div>
         <div class="switcher-stage">
-          <div class="switcher-image" style="background-image:url('IMAGES/BRAND INTEGRATION/BRAND INTEGRATION_KIOSK.png')"></div>
+          <div class="switcher-image" style="background-image:url('IMAGES/BRAND INTEGRATION/KIOSK NORI.png')"></div>
         </div>
-        <span class="switcher-caption">Kiosk shell — same footprint, new skin per activation.</span>
-      </div>
-      <div class="brand-switcher" data-switcher="decor">
-        <div class="switcher-tabs">
-          <button class="switcher-tab active" data-image="IMAGES/BRAND INTEGRATION/BRAND INTEGRATION_TABLES.png">Burger Theory</button>
-          <button class="switcher-tab" data-image="IMAGES/BRAND INTEGRATION/BRAND INTEGRATION_TABLES_02.png">Kōri</button>
-          <button class="switcher-tab" data-image="IMAGES/BRAND INTEGRATION/BRAND INTEGRATION_TABLES_03.png">Sugar Orbit</button>
-        </div>
-        <div class="switcher-stage">
-          <div class="switcher-image" style="background-image:url('IMAGES/BRAND INTEGRATION/BRAND INTEGRATION_TABLES.png')"></div>
-        </div>
-        <span class="switcher-caption">Table decor — signage, tableware, and menu cards swap per brand.</span>
-      </div>
-      <div class="brand-switcher" data-switcher="retail">
-        <div class="switcher-tabs">
-          <button class="switcher-tab active" data-image="IMAGES/BRAND INTEGRATION/BRAND INTEGRATION_RETAIL.png">NŌRI</button>
-          <button class="switcher-tab" data-image="IMAGES/BRAND INTEGRATION/BRAND INTEGRATION_RETAIL_02.png">Crush</button>
-          <button class="switcher-tab" data-image="IMAGES/BRAND INTEGRATION/BRAND INTEGRATION_RETAIL_03.png">Sweetcircle</button>
-        </div>
-        <div class="switcher-stage">
-          <div class="switcher-image" style="background-image:url('IMAGES/BRAND INTEGRATION/BRAND INTEGRATION_RETAIL.png')"></div>
-        </div>
-        <span class="switcher-caption">Retail shelving — the same merchandise wall, reskinned per brand.</span>
-      </div>
-    </div>
-    <div class="detail-moments" style="padding-top:0;">
-      <div class="moment-row">
-        <div class="moment-media"><img src="IMAGES/BRAND INTEGRATION/BRAND INTEGRATION_RETAIL_FOOD.jpg" alt="Grab-and-go retail wall stocked with packaged meals and snacks beside the growing wall"></div>
-        <div class="moment-text">
-          <span class="section-kicker">Beyond Merchandise</span>
-          <h4 class="moment-heading">Retail adapts to grab-and-go, too</h4>
-          <p>The same modular shelving carries packaged meals, snacks, and drinks for a fast retail line — chilled and ready, stocked straight from the kitchen behind it.</p>
-        </div>
+        <span class="switcher-caption">NŌRI: sushi and hand rolls.</span>
       </div>
     </div>
   </div>
 
   <section class="diagram-section" id="system-diagram">
     <div class="diagram-intro">
-      <span class="section-kicker">The System</span>
-      <h2 class="diagram-heading">One Core. <br>Four Rings.</h2>
-      <p class="diagram-line">Every principle sits on a ring — the closer to the core, the more permanent it is.</p>
+      <h2 class="diagram-heading">The House Lab <br>Organizes Through Four Rings</h2>
+      <p class="diagram-line">Every principle sits on a ring. The closer to the core, the more permanent it is.</p>
     </div>
     <div class="diagram-svg-wrap">
       <svg class="diagram-svg" viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg" aria-label="Diagram of the core and four rings: vertical farming, kitchen lab, tech integration, dining, kiosks and retail">
@@ -1384,7 +1328,6 @@ html.detail-open, body.detail-open { overflow: hidden; }
 
   <section class="floorplan-section" id="floor-plan">
     <div class="diagram-intro">
-      <span class="section-kicker">Floor Plan</span>
       <h2 class="diagram-heading">The Layout</h2>
       <p class="diagram-line">Ground floor and mezzanine, both organized around the same core.</p>
     </div>
@@ -1407,7 +1350,7 @@ html.detail-open, body.detail-open { overflow: hidden; }
   <section class="finale-section" id="spaces">
     <div class="finale-track">
       <div class="finale-frame">
-        <img class="finale-frame-img" src="IMAGES/FULL SPACE/FULL SPACE.png" alt="The House Lab — full dining floor beneath the vertical growing core, signage lit">
+        <img class="finale-frame-img" src="IMAGES/FULL SPACE/FULL SPACE.png" alt="The House Lab, full dining floor beneath the vertical growing core, signage lit">
         <div class="finale-frame-caption">
           <span class="finale-frame-index">01</span>
           <span class="finale-frame-label">The Full Space</span>
@@ -1432,7 +1375,6 @@ html.detail-open, body.detail-open { overflow: hidden; }
 
   <section class="roadmap-section" id="roadmap">
     <div class="roadmap-intro">
-      <span class="section-kicker">The Path Forward</span>
       <h2 class="diagram-heading">From Plan to Opening Day</h2>
       <p class="diagram-line">Scope, calendar, and the road from Phase 0 to a running kiosk network.</p>
     </div>
@@ -1440,7 +1382,6 @@ html.detail-open, body.detail-open { overflow: hidden; }
     <div class="roadmap-block">
       <div class="roadmap-block-inner">
         <div class="roadmap-block-heading">
-          <span class="section-kicker">Scope, Calendar &amp; Phases</span>
           <h3 class="diagram-heading" style="font-size:clamp(28px,3.4vw,42px);">Three Phases, Built in Order</h3>
           <p class="diagram-line">Phase 0 defines the full conceptual and operational foundation, builds The House, and launches its first kiosks. Deliberately left out of this first launch: catering and ready-meal production for retail, which comes later.</p>
         </div>
@@ -1467,11 +1408,6 @@ html.detail-open, body.detail-open { overflow: hidden; }
             <div class="timing-label">Concept, Operations &amp; Tech</div>
             <p class="timing-note">From kickoff to site handover.</p>
           </div>
-          <div class="timing-item">
-            <div class="timing-value">TBD</div>
-            <div class="timing-label">Construction</div>
-            <p class="timing-note">Firms up once the site and local contractors are known — the one variable not yet pinned down.</p>
-          </div>
         </div>
       </div>
     </div>
@@ -1479,9 +1415,8 @@ html.detail-open, body.detail-open { overflow: hidden; }
     <div class="roadmap-block">
       <div class="roadmap-block-inner">
         <div class="roadmap-block-heading">
-          <span class="section-kicker">Where Our Part Ends</span>
           <h3 class="diagram-heading" style="font-size:clamp(28px,3.4vw,42px);">What We Build, What Comes Next</h3>
-          <p class="diagram-line">Our contribution is intangible: structuring and conceptualization — and it has an end date: launch. Everything the build needs, delivered by a team of professionals across kitchen, marketing, operations, workflow design, and delivery.</p>
+          <p class="diagram-line">Our contribution is intangible: structuring and conceptualization. And it has an end date: launch. Everything the build needs, delivered by a team of professionals across kitchen, marketing, operations, workflow design, and delivery.</p>
         </div>
         <div class="deliver-grid">
           <div class="deliver-card">
@@ -1507,9 +1442,8 @@ html.detail-open, body.detail-open { overflow: hidden; }
     <div class="roadmap-block">
       <div class="roadmap-block-inner">
         <div class="roadmap-block-heading">
-          <span class="section-kicker">The Full Scope</span>
-          <h3 class="diagram-heading" style="font-size:clamp(28px,3.4vw,42px);">What Phase 0 Actually Covers</h3>
-          <p class="diagram-line">Four blocks, task by task. The conceptual work is the bulk of it — technology is one part of a much bigger picture, not the headline.</p>
+          <h3 class="diagram-heading" style="font-size:clamp(28px,3.4vw,42px);">What Phase <span class="zero-glyph">0</span> Covers</h3>
+          <p class="diagram-line">Four blocks, task by task. The conceptual work is the bulk of it. Technology is one part of a much bigger picture, not the headline.</p>
         </div>
         <div class="scope-grid">
           <div class="scope-card">
@@ -1551,7 +1485,6 @@ html.detail-open, body.detail-open { overflow: hidden; }
     <div class="roadmap-block">
       <div class="roadmap-block-inner">
         <div class="roadmap-block-heading">
-          <span class="section-kicker">Roadmap</span>
           <h3 class="diagram-heading" style="font-size:clamp(28px,3.4vw,42px);">From Plan to a <br>Multi-Brand Platform</h3>
         </div>
         <div class="timeline">
@@ -1602,16 +1535,14 @@ html.detail-open, body.detail-open { overflow: hidden; }
 
     <div class="roadmap-block">
       <div class="roadmap-block-inner next-step-inner">
-        <span class="section-kicker" style="justify-content:center;">Next Step</span>
         <h3 class="diagram-heading">A Methodology First. <br>Then the Brands.</h3>
-        <p>Starting point: Brand 1, one idea already on the table. Agree the platform structure and the phased approach set out here. Once aligned, we formalize Phase 0 and the research begins — with The House's methodology, and its first example ideas, at the center.</p>
+        <p>Starting point: Brand 1, one idea already on the table. Agree the platform structure and the phased approach set out here. Once aligned, we formalize Phase 0 and the research begins with The House's methodology, and its first example ideas, at the center.</p>
       </div>
     </div>
 
     <div class="roadmap-block">
       <div class="roadmap-block-inner">
         <div class="roadmap-block-heading">
-          <span class="section-kicker">Appendix</span>
           <h3 class="diagram-heading" style="font-size:clamp(28px,3.4vw,42px);">Two People, One Project</h3>
           <p class="diagram-line">Each in their own domain: strategy and brand, architecture and design.</p>
         </div>
@@ -1638,7 +1569,7 @@ html.detail-open, body.detail-open { overflow: hidden; }
     <div class="closing-scrim"></div>
     <div class="closing-content">
       <span class="closing-brand">The House Lab</span>
-      <a class="closing-logo-link" href="https://externalreference.com/" target="_blank" rel="noopener noreferrer" aria-label="External Reference — opens in a new tab">
+      <a class="closing-logo-link" href="https://externalreference.com/" target="_blank" rel="noopener noreferrer" aria-label="External Reference, opens in a new tab">
         <img src="IMAGES/logo/external-reference-logo.png" alt="External Reference" class="closing-logo">
       </a>
     </div>
@@ -1714,8 +1645,7 @@ function setupHeroParticles() {
     }
 }
 
-function setupPlanCompare() {
-    const compare = document.getElementById('plan-compare');
+function setupPlanCompare(compare) {
     if (!compare) return;
     const overlay = compare.querySelector('.plan-overlay');
     const handle = compare.querySelector('.plan-handle');
@@ -1862,6 +1792,15 @@ function setupBrandSwitchers() {
     });
 }
 
+function setupSpatialVideo() {
+    const video = document.querySelector('.spatial-video');
+    if (!video) return;
+    video.addEventListener('click', () => {
+        if (video.paused) video.play();
+        else video.pause();
+    });
+}
+
 function setupFinaleMaterials() {
     const tabs = document.querySelectorAll('.finale-material-tab');
     const images = document.querySelectorAll('.finale-material-image');
@@ -1879,7 +1818,7 @@ function setupFinaleMaterials() {
 
 function setupCursorHoverFeedback() {
     if (!cursorOuter) return;
-    document.querySelectorAll('.hub-card, .switcher-tab, .detail-close, .nav-link, .contact-btn, .header-logo, .plan-compare, .trends-dot, .finale-material-tab, .closing-logo-link').forEach((el) => {
+    document.querySelectorAll('.hub-card, .switcher-tab, .detail-close, .nav-link, .contact-btn, .header-logo, .plan-compare, .photo-compare, .spatial-video, .trends-dot, .finale-material-tab, .closing-logo-link').forEach((el) => {
         el.addEventListener('mouseenter', () => cursorOuter.classList.add('hovering'));
         el.addEventListener('mouseleave', () => cursorOuter.classList.remove('hovering'));
     });
@@ -1940,10 +1879,12 @@ window.addEventListener('DOMContentLoaded', () => {
     setupScrollReveal('.roadmap-block-inner', { threshold: 0.15 });
     setupScrollReveal('.closing-section', { threshold: 0.4 });
     setupHeroParticles();
-    setupPlanCompare();
+    setupPlanCompare(document.getElementById('plan-compare'));
+    setupPlanCompare(document.getElementById('conveyor-compare'));
     setupConceptScene();
     setupPrincipleHub();
     setupBrandSwitchers();
+    setupSpatialVideo();
     setupCursorHoverFeedback();
     setupFinaleScroll();
     setupFinaleMaterials();
