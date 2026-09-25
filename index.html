@@ -459,7 +459,8 @@ html.detail-open, body.detail-open { overflow: hidden; }
 .tray-block { max-width: 1120px; margin: 0 auto; width: 100%; text-align: center; }
 .tray-caption { font-size: 14.5px; color: #9aa3ab; font-weight: 300; line-height: 1.7; max-width: 640px; margin: 12px auto 28px auto; }
 .tray-image { width: 100%; height: auto; display: block; border-radius: 8px; box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5); }
-.retail-intro { flex: 1 1 100%; max-width: 760px; margin: 0 auto; text-align: center; }
+.retail-intro { flex: 1 1 100%; width: 100%; text-align: center; }
+.retail-intro-inner { max-width: 760px; margin: 0 auto; }
 .kit-swiper {
     position: relative;
     aspect-ratio: 4 / 3;
@@ -1429,8 +1430,10 @@ html.detail-open, body.detail-open { overflow: hidden; }
     </div>
     <div class="detail-extra" style="padding-top:0;">
       <div class="retail-intro">
-        <h4 class="moment-heading">Retail flexes too</h4>
-        <p class="tray-caption" style="margin-left:0; margin-right:0;">The same corner reskins for whichever brand is on this week, and just as easily drops the branding altogether to run as a refrigerated grab-and-go counter: chilled meals and snacks, stocked straight from the kitchen behind it.</p>
+        <div class="retail-intro-inner">
+          <h4 class="moment-heading">Retail flexes too</h4>
+          <p class="tray-caption" style="margin-left:0; margin-right:0;">The same corner reskins for whichever brand is on this week, and just as easily drops the branding altogether to run as a refrigerated grab-and-go counter: chilled meals and snacks, stocked straight from the kitchen behind it.</p>
+        </div>
       </div>
       <div class="brand-switcher wide" data-switcher="retail" data-autoplay="3500">
         <div class="switcher-tabs">
