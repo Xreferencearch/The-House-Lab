@@ -9,3 +9,8 @@ Thumbs.db
 
 # Archived/unused renders
 IMAGES/**/OLD/
+
+# Raw/scratch generation candidates and source files (not part of the website)
+IMAGES/**/ASSETS/
+*.psd
+IMAGES/BRAND INTEGRATION/KIOSK VIDEO.mp4

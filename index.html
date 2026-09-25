@@ -56,24 +56,26 @@ body {
 .main-header {
     position: fixed; top: 0; left: 0; right: 0;
     z-index: 100;
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
     padding: 14px 60px;
     background: rgba(10, 13, 18, 0.55);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(241, 236, 221, 0.08);
 }
-.brand { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; }
-.header-logo { justify-self: center; display: inline-flex; align-items: center; }
+.brand-lockup { display: flex; align-items: center; gap: 14px; }
+.brand { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; white-space: nowrap; }
+.brand-x { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 600; color: #9aa3ab; }
+.header-logo { display: inline-flex; align-items: center; }
 .header-logo img {
-    height: 62px; width: auto; display: block;
+    height: 42px; width: auto; display: block;
     filter: invert(1);
     opacity: 0.9;
     transition: opacity 0.3s;
 }
 .header-logo:hover img { opacity: 1; }
-.header-right { justify-self: end; display: flex; align-items: center; gap: 24px; }
+.header-right { display: flex; align-items: center; gap: 24px; }
 .header-nav { display: flex; align-items: center; gap: 22px; }
 .nav-link {
     color: #f1ecdd; text-decoration: none;
@@ -83,21 +85,55 @@ body {
 }
 .nav-link:hover { color: #e7fe55; }
 .nav-dot { width: 3px; height: 3px; background: rgba(241, 236, 221, 0.2); border-radius: 50%; flex-shrink: 0; }
-.contact-btn {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 10px 24px;
-    background: #f1ecdd; color: #0a0d12;
-    text-decoration: none;
-    font-size: 10px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;
-    border-radius: 20px;
-    transition: transform 0.3s, background 0.3s;
-    white-space: nowrap;
+
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 32px; height: 32px;
+    background: none; border: none; padding: 0;
+    flex-shrink: 0;
 }
-.btn-circle {
-    display: inline-block; width: 6px; height: 6px;
-    border: 1px solid #0a0d12; border-radius: 50%; background: transparent;
+.nav-toggle span {
+    display: block;
+    width: 20px; height: 1.5px;
+    background: #f1ecdd;
+    transition: transform 0.3s, opacity 0.3s;
 }
-.contact-btn:hover { transform: scale(1.05); background: #e7fe55; }
+.nav-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+.mobile-nav { display: none; }
+
+@media (max-width: 860px) {
+    .header-nav { display: none; }
+    .nav-toggle { display: flex; }
+    .brand-lockup { gap: 8px; }
+    .brand { font-size: 12px; letter-spacing: 3px; }
+    .header-logo img { height: 28px; }
+    .mobile-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        position: absolute;
+        top: 100%; left: 0; right: 0;
+        padding: 0 24px;
+        background: rgba(10, 13, 18, 0.97);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(241, 236, 221, 0.08);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.35s cubic-bezier(0.25, 1, 0.5, 1), padding 0.35s;
+    }
+    .mobile-nav.open { max-height: 420px; padding: 16px 24px 24px 24px; }
+    .mobile-nav .nav-link {
+        padding: 12px 0;
+        font-size: 13px; letter-spacing: 2px;
+        border-bottom: 1px solid rgba(241, 236, 221, 0.08);
+    }
+}
 
 /* ============================================================
    Shared panel component: used by Intro, Brand Principles
@@ -254,7 +290,15 @@ body {
     color: #f1ecdd;
     margin: 16px 0 12px 0;
 }
-.hub-line { font-size: 16px; color: #9aa3ab; font-weight: 300; line-height: 1.7; }
+.hub-subheading {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #9aa3ab;
+    letter-spacing: 0.3px;
+    margin: 0 0 14px 0;
+}
+.hub-line { font-size: 16px; color: #e7fe55; font-weight: 300; line-height: 1.7; }
 
 .hub-grid {
     flex: 1;
@@ -385,7 +429,7 @@ html.detail-open, body.detail-open { overflow: hidden; }
     transition: opacity 0.9s cubic-bezier(0.25, 1, 0.5, 1), transform 0.9s cubic-bezier(0.25, 1, 0.5, 1);
 }
 .moment-row.in-view .moment-media { opacity: 1; transform: translateY(0); }
-.moment-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.moment-media img, .moment-media video { width: 100%; height: 100%; object-fit: cover; display: block; }
 .moment-media.contain { background: #0d1117; }
 .moment-media.contain img { object-fit: contain; }
 .moment-media.split { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
@@ -398,6 +442,109 @@ html.detail-open, body.detail-open { overflow: hidden; }
 }
 .moment-row.in-view .moment-media-compare { opacity: 1; transform: translateY(0); }
 .moment-media-compare .plan-hint { margin-top: 12px; }
+.click-video { cursor: pointer; }
+
+.moment-media-kit-swiper {
+    flex: 1 1 55%;
+    min-width: 0;
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.9s cubic-bezier(0.25, 1, 0.5, 1), transform 0.9s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.moment-row.in-view .moment-media-kit-swiper { opacity: 1; transform: translateY(0); }
+.moment-media-kit-swiper .plan-hint { margin-top: 12px; text-align: left; }
+.kit-swiper-copy { font-size: 15.5px; line-height: 1.75; font-weight: 300; color: #f1ecdd; margin-top: 14px; }
+.moment-row-video-swiper { align-items: stretch; }
+.moment-row-video-swiper .moment-media { aspect-ratio: unset; }
+
+.tray-block { max-width: 1120px; margin: 0 auto; width: 100%; text-align: center; }
+.tray-caption { font-size: 14.5px; color: #9aa3ab; font-weight: 300; line-height: 1.7; max-width: 640px; margin: 12px auto 28px auto; }
+.tray-image { width: 100%; height: auto; display: block; border-radius: 8px; box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5); }
+.retail-intro { flex: 1 1 100%; max-width: 760px; margin: 0 auto; text-align: center; }
+.kit-swiper {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #0d1117;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
+}
+.kit-swiper-img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: contain;
+    display: block;
+    opacity: 0;
+    pointer-events: none;
+    cursor: zoom-in;
+    transition: opacity 0.35s ease;
+}
+.kit-swiper-img.active { opacity: 1; pointer-events: auto; }
+.kit-swiper-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: rgba(10, 13, 18, 0.85);
+    border: 1.5px solid rgba(241, 236, 221, 0.6);
+    color: #f1ecdd; font-size: 20px;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 3;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    transition: background 0.3s, border-color 0.3s, color 0.3s;
+}
+.kit-swiper-arrow:hover { background: #e7fe55; border-color: #e7fe55; color: #0a0d12; }
+.kit-swiper-prev { left: 14px; }
+.kit-swiper-next { right: 14px; }
+.kit-swiper-label {
+    position: absolute; left: 18px; bottom: 14px;
+    font-family: 'Urbanist', sans-serif;
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;
+    color: #0a0d12;
+    background: rgba(241, 236, 221, 0.9);
+    padding: 6px 14px; border-radius: 14px;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.lightbox {
+    position: fixed; inset: 0; z-index: 300;
+    background: rgba(10, 13, 18, 0.95);
+    display: flex; align-items: center; justify-content: center;
+    padding: 60px;
+    box-sizing: border-box;
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+.lightbox.open { opacity: 1; visibility: visible; pointer-events: auto; }
+.lightbox-img { max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6); }
+.lightbox-close {
+    position: fixed; top: 24px; right: 28px; z-index: 301;
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 44px; height: 44px;
+    background: rgba(10, 13, 18, 0.6);
+    border: 1px solid rgba(241, 236, 221, 0.25);
+    border-radius: 50%;
+    color: #f1ecdd; font-size: 16px;
+    backdrop-filter: blur(6px);
+    transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+.lightbox-close:hover { background: #e7fe55; color: #0a0d12; border-color: #e7fe55; }
+.lightbox-arrow {
+    position: fixed; top: 50%; transform: translateY(-50%);
+    z-index: 301;
+    display: none;
+    align-items: center; justify-content: center;
+    width: 52px; height: 52px;
+    background: rgba(10, 13, 18, 0.6);
+    border: 1px solid rgba(241, 236, 221, 0.25);
+    border-radius: 50%;
+    color: #f1ecdd; font-size: 24px;
+    backdrop-filter: blur(6px);
+    transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+.lightbox-arrow:hover { background: #e7fe55; color: #0a0d12; border-color: #e7fe55; }
+.lightbox.has-gallery .lightbox-arrow { display: flex; }
+.lightbox-prev { left: 28px; }
+.lightbox-next { right: 28px; }
 .moment-text {
     flex: 1 1 40%;
     min-width: 0;
@@ -637,7 +784,7 @@ html.detail-open, body.detail-open { overflow: hidden; }
     pointer-events: none;
 }
 .plan-hint {
-    font-size: 12px; color: #9aa3ab; letter-spacing: 0.3px;
+    font-size: 12px; color: #e7fe55; letter-spacing: 0.3px;
     text-align: center;
 }
 .photo-compare {
@@ -666,10 +813,10 @@ html.detail-open, body.detail-open { overflow: hidden; }
 /* ============================================================
    Finale: horizontal scroll through space renders (placeholder)
    ============================================================ */
-.finale-section { position: relative; height: 300vh; }
+.finale-section { position: relative; height: 500vh; overflow-x: clip; }
 .finale-track {
     position: sticky; top: 0;
-    height: 100vh; width: 300vw;
+    height: 100vh; width: 500vw;
     display: flex;
     will-change: transform;
 }
@@ -906,6 +1053,13 @@ html.detail-open, body.detail-open { overflow: hidden; }
 .closing-logo-link { display: inline-flex; align-items: center; }
 .closing-logo { height: 70px; width: auto; display: block; filter: invert(1); opacity: 0.95; transition: opacity 0.3s; }
 .closing-logo-link:hover .closing-logo { opacity: 1; }
+
+/* ============================================================
+   Mobile: give floor plans and principle-detail media more width
+   ============================================================ */
+@media (max-width: 640px) {
+    .detail-moments, .detail-extra, .floorplan-section, .diagram-section { padding-left: 20px; padding-right: 20px; }
+}
 </style>
 </head>
 <body>
@@ -913,10 +1067,13 @@ html.detail-open, body.detail-open { overflow: hidden; }
 <div class="cursor-outer"></div>
 
 <div class="main-header">
-  <div class="brand">The House Lab</div>
-  <a class="header-logo" href="https://externalreference.com/" target="_blank" rel="noopener noreferrer" aria-label="External Reference, opens in a new tab">
-    <img src="IMAGES/logo/external-reference-logo.png" alt="External Reference">
-  </a>
+  <div class="brand-lockup">
+    <span class="brand">The House Lab</span>
+    <span class="brand-x">x</span>
+    <a class="header-logo" href="https://externalreference.com/" target="_blank" rel="noopener noreferrer" aria-label="External Reference, opens in a new tab">
+      <img src="IMAGES/logo/external-reference-logo.png" alt="External Reference">
+    </a>
+  </div>
   <div class="header-right">
     <nav class="header-nav">
       <a href="#the-mechanism" class="nav-link">How it Works</a>
@@ -927,8 +1084,16 @@ html.detail-open, body.detail-open { overflow: hidden; }
       <span class="nav-dot"></span>
       <a href="#roadmap" class="nav-link">Roadmap</a>
     </nav>
-    <a href="#" class="contact-btn">Contact <span class="btn-circle"></span></a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
+  <nav class="mobile-nav">
+    <a href="#the-mechanism" class="nav-link">How it Works</a>
+    <a href="#brand-principles" class="nav-link">Brand Principles</a>
+    <a href="#floor-plan" class="nav-link">The Layout</a>
+    <a href="#roadmap" class="nav-link">Roadmap</a>
+  </nav>
 </div>
 
 <main class="site-content">
@@ -954,7 +1119,7 @@ html.detail-open, body.detail-open { overflow: hidden; }
       </div>
       <div class="concept-beat" data-beat="1">
         <div class="panel-content">
-          <p class="panel-line">A platform, not a single brand. One production and brand engine, capable of launching and carrying more than one concept over time.</p>
+          <p class="panel-line">One production and brand engine, capable of launching and carrying more than one concept over time.</p>
         </div>
       </div>
       <div class="concept-beat" data-beat="2">
@@ -1096,12 +1261,13 @@ html.detail-open, body.detail-open { overflow: hidden; }
 
   <section class="principles-hub" id="brand-principles">
     <div class="hub-intro">
-      <h2 class="hub-heading">Four Values, <br>One System</h2>
+      <h2 class="hub-heading">Brand Principles</h2>
+      <p class="hub-subheading">Four Values, One System</p>
       <p class="hub-line">Click a principle to see how it works.</p>
     </div>
     <div class="hub-grid">
       <button class="hub-card" data-target="detail-farm">
-        <div class="hub-card-media" style="background-image:url('IMAGES/FARM TO TABLE/FARM TO TABLE.png')"></div>
+        <div class="hub-card-media" style="background-image:url('IMAGES/FARM TO TABLE/CENTRAL VERTICAL FARM.png')"></div>
         <div class="hub-card-scrim"></div>
         <span class="hub-card-arrow">→</span>
         <span class="hub-card-title">Farm to Table</span>
@@ -1113,13 +1279,13 @@ html.detail-open, body.detail-open { overflow: hidden; }
         <span class="hub-card-title">Frictionless Service</span>
       </button>
       <button class="hub-card" data-target="detail-spatial">
-        <div class="hub-card-media" style="background-image:url('IMAGES/SPATIAL FLEXIBILITY/COOKING WORKSHOP.png')"></div>
+        <div class="hub-card-media" style="background-image:url('IMAGES/SPATIAL FLEXIBILITY/SPATIAL FLEXIBILITY COVER.png')"></div>
         <div class="hub-card-scrim"></div>
         <span class="hub-card-arrow">→</span>
         <span class="hub-card-title">Spatial Flexibility</span>
       </button>
       <button class="hub-card" data-target="detail-brand">
-        <div class="hub-card-media" style="background-image:url('IMAGES/BRAND INTEGRATION/KIOSK NORI.png')"></div>
+        <div class="hub-card-media" style="background-image:url('IMAGES/BRAND INTEGRATION/OPENING IMAGE.png')"></div>
         <div class="hub-card-scrim"></div>
         <span class="hub-card-arrow">→</span>
         <span class="hub-card-title">Modular by Design</span>
@@ -1130,7 +1296,7 @@ html.detail-open, body.detail-open { overflow: hidden; }
   <div class="principle-detail" id="detail-farm">
     <button class="detail-close">← Back</button>
     <div class="principle-panel detail-hero short" id="principle-farm">
-      <div class="panel-bg" style="background-image:url('IMAGES/FARM TO TABLE/FARM TO TABLE.png')"></div>
+      <div class="panel-bg" style="background-image:url('IMAGES/FARM TO TABLE/CENTRAL VERTICAL FARM.png')"></div>
       <div class="panel-scrim"></div>
       <div class="panel-content">
         <h3 class="panel-heading">Farm to Table</h3>
@@ -1139,17 +1305,17 @@ html.detail-open, body.detail-open { overflow: hidden; }
     </div>
     <div class="detail-moments">
       <div class="moment-row">
-        <div class="moment-media"><img src="IMAGES/FARM TO TABLE/FARM TO TABLE.png" alt="Vertical growing towers wrapping the dining room"></div>
+        <div class="moment-media"><video class="click-video" src="IMAGES/FARM TO TABLE/Cinematic Elevator Journey.mp4" autoplay muted loop playsinline preload="auto"></video></div>
         <div class="moment-text">
-          <h4 class="moment-heading">Grown in the room, not shipped to it</h4>
-          <p>Vertical towers wrap the dining room in living herbs and greens. The same plants guests see growing are the ones that land on their plate that night.</p>
+          <h4 class="moment-heading">One ride from kitchen to farm</h4>
+          <p>A glass elevator at the center of the core carries staff straight from the kitchen up into the growing towers, cutting the distance ingredients travel to nothing and keeping every harvest as fresh as it gets.</p>
         </div>
       </div>
       <div class="moment-row reverse">
-        <div class="moment-media"><img src="IMAGES/FARM TO TABLE/KITCHEN LAB.jpg" alt="Chef harvesting herbs beside a live climate dashboard"></div>
+        <div class="moment-media"><img src="IMAGES/FARM TO TABLE/MOVABLE HYROPONICS UNITS.jpg" alt="Mobile hydroponic growing units positioned between dining tables"></div>
         <div class="moment-text">
-          <h4 class="moment-heading">A dashboard for every tower</h4>
-          <p>Humidity, light, and yield are tracked live for every tower, so the kitchen harvests at peak freshness and builds the menu around what's ready that day.</p>
+          <h4 class="moment-heading">The farm reaches the tables</h4>
+          <p>Hydroponic units roll out between the tables themselves, each one self-contained with its own lighting, so guests aren't just near the farm. They're seated inside it.</p>
         </div>
       </div>
     </div>
@@ -1210,7 +1376,7 @@ html.detail-open, body.detail-open { overflow: hidden; }
     </div>
     <div class="detail-extra">
       <div class="spatial-video-wrap">
-        <video class="spatial-video" src="IMAGES/SPATIAL FLEXIBILITY/THE HOUSE LAB_FLEX.mp4" autoplay muted loop playsinline preload="auto"></video>
+        <video class="spatial-video click-video" src="IMAGES/SPATIAL FLEXIBILITY/THE HOUSE LAB_FLEX.mp4" autoplay muted loop playsinline preload="auto"></video>
         <p class="plan-hint">The same floor, reconfigured: from dining, to a cooking class, to a brand launch.</p>
       </div>
     </div>
@@ -1231,42 +1397,52 @@ html.detail-open, body.detail-open { overflow: hidden; }
   <div class="principle-detail" id="detail-brand">
     <button class="detail-close">← Back</button>
     <div class="principle-panel detail-hero short" id="principle-brand">
-      <div class="panel-bg" style="background-image:url('IMAGES/BRAND INTEGRATION/KIOSK NORI.png')"></div>
+      <div class="panel-bg" style="background-image:url('IMAGES/BRAND INTEGRATION/OPENING IMAGE.png')"></div>
       <div class="panel-scrim"></div>
       <div class="panel-content">
         <h3 class="panel-heading">Modular by Design</h3>
         <p class="panel-line">Kiosks reskin end to end. The same shell becomes a new brand for every activation.</p>
       </div>
     </div>
-    <div class="detail-moments">
-      <div class="moment-row">
-        <div class="moment-media contain"><img src="IMAGES/BRAND INTEGRATION/KIOSK EXTERIOR KIT.png" alt="Exploded diagram of the kiosk's modular exterior kit"></div>
-        <div class="moment-text">
-          <h4 class="moment-heading">One shell, a kit of parts</h4>
-          <p>Recessed brand screen, flat touch screen, folding pickup shelf, glazed closure, condiment caddy, delivery hatch, side counter: every kiosk is built from the same modular kit, so a brand can be swapped out in hours, not weeks.</p>
+    <div class="detail-moments" style="padding-bottom:20px;">
+      <div class="moment-row moment-row-video-swiper">
+        <div class="moment-media">
+          <video class="click-video" src="IMAGES/BRAND INTEGRATION/KIOSK VIDEO_cropped.mp4" autoplay muted loop playsinline preload="auto"></video>
+        </div>
+        <div class="moment-media-kit-swiper">
+          <div class="kit-swiper" id="kit-swiper">
+            <img class="kit-swiper-img active" src="IMAGES/BRAND INTEGRATION/KIOSK EXTERIOR KIT.png" alt="Exploded diagram of the kiosk's modular exterior kit" data-label="Exterior Kit">
+            <img class="kit-swiper-img" src="IMAGES/BRAND INTEGRATION/KIOSK INTERIOR KIT.png" alt="Exploded diagram of the kiosk's modular interior kit" data-label="Interior Kit">
+            <button class="kit-swiper-arrow kit-swiper-prev" aria-label="Previous image">‹</button>
+            <button class="kit-swiper-arrow kit-swiper-next" aria-label="Next image">›</button>
+            <span class="kit-swiper-label">Exterior Kit</span>
+          </div>
+          <p class="kit-swiper-copy">The modular kiosk kit lets The House Lab plug and play different parts, so each brand activation, week to week or month to month, gets exactly what it needs without rebuilding the shell.</p>
+          <p class="plan-hint">Swipe to compare, click to enlarge.</p>
         </div>
       </div>
-      <div class="moment-row reverse">
-        <div class="moment-media contain"><img src="IMAGES/BRAND INTEGRATION/KIOSK INTERIOR KIT.png" alt="Exploded diagram of the kiosk's modular interior kit"></div>
-        <div class="moment-text">
-          <h4 class="moment-heading">The interior kit stays constant</h4>
-          <p>Prep counter, point-of-sale, storage, and service window are fixed in place and identical across every kiosk. Only the surface-level branding changes when a concept swaps in.</p>
-        </div>
+      <div class="tray-block">
+        <h4 class="moment-heading">One tray, every brand</h4>
+        <p class="tray-caption">Trays, chopstick sleeves, napkins, and cups all share the same shape and footprint. Only the print changes, so a new brand ships as a design file, not a new mold.</p>
+        <img class="tray-image" src="IMAGES/BRAND INTEGRATION/BRAND INTEGRATION_TABLES.png" alt="The same tray design carrying NŌRI, Crush, and Sweet Circle branding at one table">
       </div>
     </div>
-    <div class="detail-extra">
-      <div class="brand-switcher wide" data-switcher="kiosk">
+    <div class="detail-extra" style="padding-top:0;">
+      <div class="retail-intro">
+        <h4 class="moment-heading">Retail flexes too</h4>
+        <p class="tray-caption" style="margin-left:0; margin-right:0;">The same corner reskins for whichever brand is on this week, and just as easily drops the branding altogether to run as a refrigerated grab-and-go counter: chilled meals and snacks, stocked straight from the kitchen behind it.</p>
+      </div>
+      <div class="brand-switcher wide" data-switcher="retail" data-autoplay="3500">
         <div class="switcher-tabs">
-          <button class="switcher-tab active" data-image="IMAGES/BRAND INTEGRATION/KIOSK NORI.png" data-caption="NŌRI: sushi and hand rolls.">NŌRI</button>
-          <button class="switcher-tab" data-image="IMAGES/BRAND INTEGRATION/KIOSK CRUSH.png" data-caption="Crush: smash, stack, go.">Crush</button>
-          <button class="switcher-tab" data-image="IMAGES/BRAND INTEGRATION/KIOSK CACAO.png" data-caption="Cacao: chocolate for a brighter day.">Cacao</button>
-          <button class="switcher-tab" data-image="IMAGES/BRAND INTEGRATION/KIOSK GROW.png" data-caption="Grow: fresh from the tower to the counter.">Grow</button>
-          <button class="switcher-tab" data-image="IMAGES/BRAND INTEGRATION/KIOSK SWEET CIRCLE.png" data-caption="Sweet Circle: desserts, reimagined.">Sweet Circle</button>
+          <button class="switcher-tab active" data-image="IMAGES/BRAND INTEGRATION/RETAIL CORNER_NORI.png" data-caption="NŌRI takes over the retail corner: sushi packs, tees, and totes.">NŌRI</button>
+          <button class="switcher-tab" data-image="IMAGES/BRAND INTEGRATION/RETAIL CORNER_CRUSH.png" data-caption="Crush reskins the same shelving for grab-and-go burgers and merch.">Crush</button>
+          <button class="switcher-tab" data-image="IMAGES/BRAND INTEGRATION/RETAIL CORNER_FOOD.png" data-caption="The same corner runs as a pure grab-and-go retail line.">Grab &amp; Go</button>
+          <button class="switcher-tab" data-image="IMAGES/BRAND INTEGRATION/RETAIL CORNER_SWEET CORNER.png" data-caption="Sweet Circle turns the same wall into a dessert counter.">Sweet Circle</button>
         </div>
         <div class="switcher-stage">
-          <div class="switcher-image" style="background-image:url('IMAGES/BRAND INTEGRATION/KIOSK NORI.png')"></div>
+          <div class="switcher-image" style="background-image:url('IMAGES/BRAND INTEGRATION/RETAIL CORNER_NORI.png')"></div>
         </div>
-        <span class="switcher-caption">NŌRI: sushi and hand rolls.</span>
+        <span class="switcher-caption">NŌRI takes over the retail corner: sushi packs, tees, and totes.</span>
       </div>
     </div>
   </div>
@@ -1364,10 +1540,24 @@ html.detail-open, body.detail-open { overflow: hidden; }
         </div>
       </div>
       <div class="finale-frame">
-        <img class="finale-frame-img" src="IMAGES/FULL SPACE/FULL SPACE_BURGER POP UP LAUNCH EVENT.png" alt="CRUSH burger pop-up activation, reskinned across the same kiosk shell and dining floor">
+        <img class="finale-frame-img" src="IMAGES/FULL SPACE/01.png" alt="Wide view of the dining floor, growing core, and open kitchen">
         <div class="finale-frame-caption">
           <span class="finale-frame-index">03</span>
-          <span class="finale-frame-label">Brand Activation</span>
+          <span class="finale-frame-label">The Full Space</span>
+        </div>
+      </div>
+      <div class="finale-frame">
+        <img class="finale-frame-img" src="IMAGES/SPATIAL FLEXIBILITY/COOKING WORKSHOP.png" alt="Guests making pizza together at a hands-on cooking class beneath the growing core">
+        <div class="finale-frame-caption">
+          <span class="finale-frame-index">04</span>
+          <span class="finale-frame-label">Cooking Class</span>
+        </div>
+      </div>
+      <div class="finale-frame">
+        <img class="finale-frame-img" src="IMAGES/SPATIAL FLEXIBILITY/MULTI BRAND POP-UP.png" alt="CRUSH, The House Lab, and Crumbl Cookies sharing the same floor at once">
+        <div class="finale-frame-caption">
+          <span class="finale-frame-index">05</span>
+          <span class="finale-frame-label">Multi-Brand Activation</span>
         </div>
       </div>
     </div>
@@ -1577,6 +1767,13 @@ html.detail-open, body.detail-open { overflow: hidden; }
 
 </main>
 
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" aria-label="Close">✕</button>
+  <button class="lightbox-arrow lightbox-prev" aria-label="Previous image">‹</button>
+  <img class="lightbox-img" src="" alt="">
+  <button class="lightbox-arrow lightbox-next" aria-label="Next image">›</button>
+</div>
+
 <script>
 const cursorInner = document.querySelector('.cursor-inner');
 const cursorOuter = document.querySelector('.cursor-outer');
@@ -1605,6 +1802,28 @@ function setupNavigation() {
             const target = document.getElementById(targetId);
             if (target) target.scrollIntoView({ behavior: 'smooth' });
         });
+    });
+}
+
+function setupMobileNav() {
+    const toggle = document.querySelector('.nav-toggle');
+    const menu = document.querySelector('.mobile-nav');
+    if (!toggle || !menu) return;
+
+    function closeMenu() {
+        toggle.classList.remove('open');
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+    }
+
+    toggle.addEventListener('click', () => {
+        const isOpen = menu.classList.toggle('open');
+        toggle.classList.toggle('open', isOpen);
+        toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    menu.querySelectorAll('.nav-link').forEach((el) => {
+        el.addEventListener('click', closeMenu);
     });
 }
 
@@ -1734,6 +1953,10 @@ function setupPrincipleHub() {
         target.scrollTop = 0;
         document.documentElement.classList.add('detail-open');
         document.body.classList.add('detail-open');
+        target.querySelectorAll('video[autoplay]').forEach((video) => {
+            if (video.readyState === 0) video.load();
+            if (video.paused) video.play().catch(() => {});
+        });
         requestAnimationFrame(() => {
             requestAnimationFrame(() => {
                 const panel = target.querySelector('.principle-panel');
@@ -1774,30 +1997,117 @@ function setupBrandSwitchers() {
     document.querySelectorAll('.brand-switcher').forEach((switcher) => {
         const stageImg = switcher.querySelector('.switcher-image');
         const captionEl = switcher.querySelector('.switcher-caption');
-        const tabs = switcher.querySelectorAll('.switcher-tab');
+        const tabs = Array.from(switcher.querySelectorAll('.switcher-tab'));
         if (!stageImg) return;
-        tabs.forEach((tab) => {
+
+        function goTo(index) {
+            const tab = tabs[index];
+            if (tab.classList.contains('active')) return;
+            tabs.forEach((t) => t.classList.remove('active'));
+            tab.classList.add('active');
+            stageImg.classList.add('switching');
+            setTimeout(() => {
+                stageImg.style.backgroundImage = `url('${tab.dataset.image}')`;
+                if (captionEl && tab.dataset.caption) captionEl.textContent = tab.dataset.caption;
+                stageImg.classList.remove('switching');
+            }, 220);
+        }
+
+        tabs.forEach((tab, i) => {
             tab.addEventListener('click', () => {
-                if (tab.classList.contains('active')) return;
-                tabs.forEach((t) => t.classList.remove('active'));
-                tab.classList.add('active');
-                stageImg.classList.add('switching');
-                setTimeout(() => {
-                    stageImg.style.backgroundImage = `url('${tab.dataset.image}')`;
-                    if (captionEl && tab.dataset.caption) captionEl.textContent = tab.dataset.caption;
-                    stageImg.classList.remove('switching');
-                }, 220);
+                goTo(i);
+                if (switcher._autoplayTimer) {
+                    clearInterval(switcher._autoplayTimer);
+                    startAutoplay();
+                }
             });
+        });
+
+        function startAutoplay() {
+            const delay = parseInt(switcher.dataset.autoplay, 10);
+            if (!delay) return;
+            switcher._autoplayTimer = setInterval(() => {
+                const activeIndex = tabs.findIndex((t) => t.classList.contains('active'));
+                goTo((activeIndex + 1) % tabs.length);
+            }, delay);
+        }
+        startAutoplay();
+    });
+}
+
+function setupClickVideos() {
+    document.querySelectorAll('.click-video').forEach((video) => {
+        video.addEventListener('click', () => {
+            if (video.paused) video.play();
+            else video.pause();
         });
     });
 }
 
-function setupSpatialVideo() {
-    const video = document.querySelector('.spatial-video');
-    if (!video) return;
-    video.addEventListener('click', () => {
-        if (video.paused) video.play();
-        else video.pause();
+function openLightbox(images, startIndex) {
+    const lightbox = document.getElementById('lightbox');
+    if (!lightbox) return;
+    lightbox._gallery = images;
+    lightbox._index = startIndex || 0;
+    lightbox.classList.toggle('has-gallery', images.length > 1);
+    renderLightboxImage();
+    lightbox.classList.add('open');
+}
+
+function renderLightboxImage() {
+    const lightbox = document.getElementById('lightbox');
+    const img = lightbox.querySelector('.lightbox-img');
+    const current = lightbox._gallery[lightbox._index];
+    img.src = current.src;
+    img.alt = current.alt || '';
+}
+
+function setupLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    if (!lightbox) return;
+    const closeBtn = lightbox.querySelector('.lightbox-close');
+    const prevBtn = lightbox.querySelector('.lightbox-prev');
+    const nextBtn = lightbox.querySelector('.lightbox-next');
+
+    function close() { lightbox.classList.remove('open'); }
+    function step(delta) {
+        if (!lightbox._gallery) return;
+        lightbox._index = (lightbox._index + delta + lightbox._gallery.length) % lightbox._gallery.length;
+        renderLightboxImage();
+    }
+
+    closeBtn.addEventListener('click', close);
+    prevBtn.addEventListener('click', () => step(-1));
+    nextBtn.addEventListener('click', () => step(1));
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) close(); });
+    window.addEventListener('keydown', (e) => {
+        if (!lightbox.classList.contains('open')) return;
+        if (e.key === 'Escape') close();
+        else if (e.key === 'ArrowLeft') step(-1);
+        else if (e.key === 'ArrowRight') step(1);
+    });
+}
+
+function setupKitSwiper() {
+    const swiper = document.getElementById('kit-swiper');
+    if (!swiper) return;
+    const imgs = Array.from(swiper.querySelectorAll('.kit-swiper-img'));
+    const label = swiper.querySelector('.kit-swiper-label');
+    const gallery = imgs.map((img) => ({ src: img.getAttribute('src'), alt: img.alt }));
+    let index = 0;
+
+    function show(i) {
+        index = (i + imgs.length) % imgs.length;
+        imgs.forEach((img, n) => img.classList.toggle('active', n === index));
+        if (label) label.textContent = imgs[index].dataset.label || '';
+    }
+
+    const prev = swiper.querySelector('.kit-swiper-prev');
+    const next = swiper.querySelector('.kit-swiper-next');
+    if (prev) prev.addEventListener('click', (e) => { e.stopPropagation(); show(index - 1); });
+    if (next) next.addEventListener('click', (e) => { e.stopPropagation(); show(index + 1); });
+    imgs.forEach((img, i) => {
+        img.addEventListener('click', () => openLightbox(gallery, i));
     });
 }
 
@@ -1818,7 +2128,7 @@ function setupFinaleMaterials() {
 
 function setupCursorHoverFeedback() {
     if (!cursorOuter) return;
-    document.querySelectorAll('.hub-card, .switcher-tab, .detail-close, .nav-link, .contact-btn, .header-logo, .plan-compare, .photo-compare, .spatial-video, .trends-dot, .finale-material-tab, .closing-logo-link').forEach((el) => {
+    document.querySelectorAll('.hub-card, .switcher-tab, .detail-close, .nav-link, .header-logo, .plan-compare, .photo-compare, .spatial-video, .trends-dot, .finale-material-tab, .closing-logo-link').forEach((el) => {
         el.addEventListener('mouseenter', () => cursorOuter.classList.add('hovering'));
         el.addEventListener('mouseleave', () => cursorOuter.classList.remove('hovering'));
     });
@@ -1871,6 +2181,7 @@ function setupFinaleScroll() {
 window.addEventListener('DOMContentLoaded', () => {
     animateCursor();
     setupNavigation();
+    setupMobileNav();
     setupScrollReveal('.intro-panel', { threshold: 0.35 });
     setupScrollReveal('.principles-hub', { threshold: 0.2 });
     setupScrollReveal('.diagram-section', { threshold: 0.25 });
@@ -1884,7 +2195,9 @@ window.addEventListener('DOMContentLoaded', () => {
     setupConceptScene();
     setupPrincipleHub();
     setupBrandSwitchers();
-    setupSpatialVideo();
+    setupClickVideos();
+    setupLightbox();
+    setupKitSwiper();
     setupCursorHoverFeedback();
     setupFinaleScroll();
     setupFinaleMaterials();
