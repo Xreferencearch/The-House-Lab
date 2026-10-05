@@ -814,10 +814,10 @@ html.detail-open, body.detail-open { overflow: hidden; }
 /* ============================================================
    Finale: horizontal scroll through space renders (placeholder)
    ============================================================ */
-.finale-section { position: relative; height: 600vh; overflow-x: clip; }
+.finale-section { position: relative; height: 900vh; overflow-x: clip; }
 .finale-track {
     position: sticky; top: 0;
-    height: 100vh; width: 600vw;
+    height: 100vh; width: 900vw;
     display: flex;
     will-change: transform;
 }
@@ -1060,6 +1060,14 @@ html.detail-open, body.detail-open { overflow: hidden; }
    ============================================================ */
 @media (max-width: 640px) {
     .detail-moments, .detail-extra, .floorplan-section, .diagram-section { padding-left: 20px; padding-right: 20px; }
+}
+
+/* ============================================================
+   Mobile: show the full width of the full-space renders instead
+   of cropping them to fill the frame
+   ============================================================ */
+@media (max-width: 720px) {
+    .finale-frame-img { object-fit: contain; }
 }
 </style>
 </head>
@@ -1532,41 +1540,62 @@ html.detail-open, body.detail-open { overflow: hidden; }
         <img class="finale-frame-img" src="IMAGES/FULL SPACE/FULL SPACE.png" alt="The House Lab, full dining floor beneath the vertical growing core, signage lit">
         <div class="finale-frame-caption">
           <span class="finale-frame-index">01</span>
-          <span class="finale-frame-label">The Full Space</span>
+          <span class="finale-frame-label">View from Entry</span>
         </div>
       </div>
       <div class="finale-frame">
         <img class="finale-frame-img" src="IMAGES/FULL SPACE/02.png" alt="Kiosk ring and dining floor viewed from ground level">
         <div class="finale-frame-caption">
           <span class="finale-frame-index">02</span>
-          <span class="finale-frame-label">The Full Space</span>
+          <span class="finale-frame-label">View Next to the Centre Kitchen Lab</span>
         </div>
       </div>
       <div class="finale-frame">
         <img class="finale-frame-img" src="IMAGES/FULL SPACE/03.jpg" alt="The full space with the grab-and-go retail wall along one side">
         <div class="finale-frame-caption">
           <span class="finale-frame-index">03</span>
-          <span class="finale-frame-label">The Full Space</span>
+          <span class="finale-frame-label">View of the Retail Space</span>
         </div>
       </div>
       <div class="finale-frame">
         <img class="finale-frame-img" src="IMAGES/FULL SPACE/01.png" alt="Wide view of the dining floor, growing core, and open kitchen">
         <div class="finale-frame-caption">
           <span class="finale-frame-index">04</span>
-          <span class="finale-frame-label">The Full Space</span>
+          <span class="finale-frame-label">View from the Side</span>
+        </div>
+      </div>
+      <div class="finale-frame">
+        <img class="finale-frame-img" src="IMAGES/FULL SPACE/FULL SPACE_MezzanineView.png" alt="Looking down from the second-floor mezzanine into the main dining floor and growing core">
+        <div class="finale-frame-caption">
+          <span class="finale-frame-index">05</span>
+          <span class="finale-frame-label">View from the Mezzanine</span>
+        </div>
+      </div>
+      <div class="finale-frame">
+        <img class="finale-frame-img" src="IMAGES/FULL SPACE/FULL SPACE_MezzanineView02.png" alt="Second-floor mezzanine dining area overlooking the main floor and growing walls below">
+        <div class="finale-frame-caption">
+          <span class="finale-frame-index">06</span>
+          <span class="finale-frame-label">View from the Mezzanine</span>
+        </div>
+      </div>
+      <div class="finale-frame">
+        <img class="finale-frame-img" src="IMAGES/FULL SPACE/FULL SPACE_MezzanineView03.png" alt="Guests dining on the second-floor mezzanine beside the growing walls">
+        <div class="finale-frame-caption">
+          <span class="finale-frame-index">07</span>
+          <span class="finale-frame-label">Dining on the Mezzanine Level</span>
         </div>
       </div>
       <div class="finale-frame">
         <img class="finale-frame-img" src="IMAGES/SPATIAL FLEXIBILITY/COOKING WORKSHOP.png" alt="Guests making pizza together at a hands-on cooking class beneath the growing core">
         <div class="finale-frame-caption">
-          <span class="finale-frame-index">05</span>
+          <span class="finale-frame-index">08</span>
           <span class="finale-frame-label">Cooking Class</span>
         </div>
       </div>
       <div class="finale-frame">
         <img class="finale-frame-img" src="IMAGES/SPATIAL FLEXIBILITY/MULTI BRAND POP-UP.png" alt="CRUSH, The House Lab, and Crumbl Cookies sharing the same floor at once">
         <div class="finale-frame-caption">
-          <span class="finale-frame-index">06</span>
+          <span class="finale-frame-index">09</span>
           <span class="finale-frame-label">Multi-Brand Activation</span>
         </div>
       </div>
